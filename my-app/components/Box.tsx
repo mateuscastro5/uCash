@@ -1,36 +1,42 @@
-import React, { Component, useState } from 'react'
-import { Text, View, StyleSheet, TextInput } from 'react-native'
+import React, { Component } from 'react'
+import { Text, View } from 'react-native'
+import { useState } from 'react'
 
-interface BoxProps {
+const kpiWeights = {
+  weightVolRGB: 0.2,
+  weightVolPremium: 0.1,
+  weightVolTotal: 0.2
+}
+
+const salarioBase = 1745
+
+const Box = () => {
+  const [value, setValue] = useState('')
+  const [value2, setValue2] = useState('')
+  const [salaryResult, setSalaryResult] = useState('')
+  const [description, setDescription] = useState('')
+  
+
+  const calculateKPI = {
+    kpiWeights(weightVolPremium: number, weightVolTotal: number, weightVolRGB: number): void{
+      
+      calculateVolRGB: function() {
+      return salarioBase + 1 + weightVolPremium
+      }
+    }, 
+    
     
 }
 
-const Box = () => {
-    const [number, onChangeNumber] = React.useState('');
-    title: string;
-    textStyles?: string;
-    containerStyles?: string;
 
+export class Box extends Component {
+  render() {
     return (
       <View>
-        <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
-        placeholder='Meta'
-        keyboardType='numeric'
-        />
+        <Text> textInComponent </Text>
       </View>
     )
   }
+}
 
-const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        margin: 12,
-        borderwidth: 1,
-        padding: 10,
-    },
-});
-
-export default Box;
+export default Box
