@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   textContainer: {
     marginVertical: 40,
     marginLeft: 22,
-  }, // removido flex: 1
+  },
   formContainer: {
     marginTop: 20,
   },
