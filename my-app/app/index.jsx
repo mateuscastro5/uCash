@@ -5,21 +5,21 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Login, Signup, Welcome } from '../components/index';
 import HomeScreen from '../src/screen/HomeScreen';
+import CreateAccount from '../src/screen/CreateAccount';
 
 const Stack = createNativeStackNavigator();
 
-
-const App = () => {
-    return (
-    
-        <NavigationContainer independent={true}>
-            <Stack.Navigator screenOptions={{
-                headerShown: false,
-            }}>
-                <Stack.Screen name="Home" component={HomeScreen} />
-            </Stack.Navigator>  
-        </NavigationContainer>
-    )
+const index = () => {
+  return (
+    <NavigationContainer independent={true}>
+      <Stack.Navigator screenOptions={{
+        headerShown: false,
+      }}>
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="CreateAccount" component={CreateAccount} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
 
-export default App;
+export default index;

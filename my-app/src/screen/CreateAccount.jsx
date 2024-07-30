@@ -6,34 +6,36 @@ import { DarkTheme } from '@react-navigation/native'
 import { useFonts } from 'expo-font'
 import { useNavigation } from '@react-navigation/native'
 
-const HomeScreen = () => {
+const CreateAccount = () => {
     const navigation = useNavigation()
   return (
 
     <SafeAreaView style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.headingText}>Ola,</Text>
-        <Text style={styles.headingText}>bem-vindo ao seu Space</Text>
+        <Text style={styles.headingText}>Ai sim!</Text>
+        <Text style={styles.headingText}>vamos criar a sua conta</Text>
       </View>
 
       <View style={styles.formContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Empresa"
+        />
         <TextInput
           style={styles.input}
           placeholder="CPF"
         />
         <TextInput
           style={styles.input}
-          placeholder="Senha"
+          placeholder="Crie sua senha"
         />
-        <TouchableOpacity onPress={() => handleForgotPassword()}>
-          <Text style={styles.forgotPasswordText}>Esqueceu sua senha?</Text>
-        </TouchableOpacity>
+        <TextInput
+          style={styles.input}
+          placeholder="Repita sua senha"
+        />
       </View>
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.loginButton}>
-          <Text style={styles.loginButtonText}>Login</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.createAccountButton} onPress={() => navigation.navigate('CreateAccount')}>
           <Text style={styles.createAccountButtonText}>Criar Conta</Text>
         </TouchableOpacity>
@@ -42,7 +44,7 @@ const HomeScreen = () => {
   )
 }
 
-export default HomeScreen
+export default CreateAccount
 
 const styles = StyleSheet.create({
   container: {
@@ -54,6 +56,7 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     margin: 40,
+    marginBottom: 20,
   },
   formContainer: {
     marginTop: 20,
@@ -70,13 +73,6 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     marginLeft: 40,
     marginRight: 40,
-  },
-  forgotPasswordText: {
-    fontSize: 16,
-    color: '#373737', 
-    textDecorationLine: 'none', 
-    alignSelf: 'center', 
-    marginBottom: 20,
   },
   buttonContainer: {
     flexDirection: 'column',
