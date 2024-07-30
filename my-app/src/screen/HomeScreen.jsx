@@ -43,7 +43,7 @@ const HomeScreen = () => {
             source={require('../../assets/images/SPACE.png')}
             style={styles.logo}
             onError={(error) => console.error('Erro ao carregar imagem:', error)}
-          />
+            />
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -137,10 +137,10 @@ const styles = StyleSheet.create({
     color: '#3A3A3A',
   },
   logo: {
-    width: 10,
-    height: 100,
+    width: 160,
+    height: 130,
     resizeMode: 'contain',
-    marginTop: 20,
+    marginTop: 10,
   },
 });
 
