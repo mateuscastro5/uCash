@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, TextInput } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, TextInput, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -39,6 +39,11 @@ const HomeScreen = () => {
           <TouchableOpacity style={[styles.createAccountButton, { marginTop: 20 }]} onPress={() => navigation.navigate('CreateAccount')}>
             <Text style={styles.createAccountButtonText}>Criar Conta</Text>
           </TouchableOpacity>
+          <Image
+            source={require('../../assets/images/SPACE.png')}
+            style={styles.logo}
+            onError={(error) => console.error('Erro ao carregar imagem:', error)}
+          />
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -114,7 +119,8 @@ const styles = StyleSheet.create({
   },
   createAccountButton: {
     alignItems: 'center',
-    backgroundColor: '#31FF9C', // Verde
+    
+    backgroundColor: '#fff', // Verde
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
@@ -129,6 +135,12 @@ const styles = StyleSheet.create({
   createAccountButtonText: {
     fontSize: 18,
     color: '#3A3A3A',
+  },
+  logo: {
+    width: 10,
+    height: 100,
+    resizeMode: 'contain',
+    marginTop: 20,
   },
 });
 
