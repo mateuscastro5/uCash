@@ -6,14 +6,11 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mateuscastro5/uCash-Backend.git"
+    "type": "git"
   },
   "author": "Mateus",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mateuscastro5/uCash-Backend/issues"
   },
-  "homepage": "https://github.com/mateuscastro5/uCash-Backend#readme",
   "description": ""
 }
