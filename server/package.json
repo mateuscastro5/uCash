@@ -1,19 +1,22 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/mateuscastro5/uCash-Backend.git"
+    "type": "git"
   },
   "author": "Mateus",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/mateuscastro5/uCash-Backend/issues"
-  },
-  "homepage": "https://github.com/mateuscastro5/uCash-Backend#readme",
-  "description": ""
+  "bugs": {},
+  "description": "",
+  "dependencies": {
+    "axios": "^1.7.2",
+    "express": "^4.19.2",
+    "mongodb": "^6.8.0",
+    "mongoose": "^8.5.2",
+    "nodemon": "^3.1.4"
+  }
 }

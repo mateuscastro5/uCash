@@ -2,6 +2,44 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
+
+function RegisterPage({props}){
+  const [cpf, setCpf] = useState('');
+  const [cpfVerify, setCpfVerify] = useState('');
+  const [enterprise, setEnterprise] = useState('');
+  const [enterpriseVerify, setEnterpriseVerify] = useState('')
+  const [password, setPassword] = useState('');
+  const [passwordVerify, setPasswordVerify] = useState('');
+  const [showPassword, setShowPassword] = useState('');
+
+  function handleCpf(e) {
+    const cpfVar = e.nativeEvent.text;
+    setCpf(cpfVar);
+    setCpfVerify(false);
+
+    if (cpfVar.length > 1) {
+      setCpfVerify(true);
+    }
+  }
+  function handleEnterprise(e) {
+    const enterpriseVar = e.nativeEvent.text;
+    setEnterprise(enterpriseVar);
+    setEnterpriseVerify(false);
+  }
+  function handleSubmit(){
+    const userData = {
+      cpf:cpf,
+      enterprise:enterprise,
+      password,
+    };
+
+    axios.post("http://localhost:5001/register", userData).then((res) => 
+    console.log(res.data)).catch(e => console.log(e));
+  }
+}
 
 const CreateAccount = () => {
   const navigation = useNavigation();
@@ -48,7 +86,7 @@ const CreateAccount = () => {
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.createAccountButton}>
+          <TouchableOpacity style={styles.createAccountButton} onPress={() => handleSubmit()}>
             <Text style={styles.createAccountButtonText}>Criar Conta</Text>
           </TouchableOpacity>
         </View>
