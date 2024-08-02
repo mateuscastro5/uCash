@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    width: 200, // largura igual para os botões
+    width: 200, 
   },
   loginButtonText: {
     fontSize: 18,
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    width: 200, // largura igual para os botões
+    width: 200, 
   },
   createAccountButtonText: {
     fontSize: 18,
