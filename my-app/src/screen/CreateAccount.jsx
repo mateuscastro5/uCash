@@ -1,48 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
-import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-
-function RegisterPage({props}){
-  const [cpf, setCpf] = useState('');
-  const [cpfVerify, setCpfVerify] = useState('');
-  const [enterprise, setEnterprise] = useState('');
-  const [enterpriseVerify, setEnterpriseVerify] = useState('')
-  const [password, setPassword] = useState('');
-  const [passwordVerify, setPasswordVerify] = useState('');
-  const [showPassword, setShowPassword] = useState('');
-
-  function handleCpf(e) {
-    const cpfVar = e.nativeEvent.text;
-    setCpf(cpfVar);
-    setCpfVerify(false);
-
-    if (cpfVar.length > 1) {
-      setCpfVerify(true);
-    }
-  }
-  function handleEnterprise(e) {
-    const enterpriseVar = e.nativeEvent.text;
-    setEnterprise(enterpriseVar);
-    setEnterpriseVerify(false);
-  }
-  function handleSubmit(){
-    const userData = {
-      cpf:cpf,
-      enterprise:enterprise,
-      password,
-    };
-
-    axios.post("http://localhost:5001/register", userData).then((res) => 
-    console.log(res.data)).catch(e => console.log(e));
-  }
-}
 
 const CreateAccount = () => {
   const navigation = useNavigation();
+  const [cpf, setCpf] = useState('');
+  const [enterprise, setEnterprise] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordVerify, setPasswordVerify] = useState('');
+
+  const handleSubmit = () => {
+    const userData = {
+      cpf,
+      enterprise,
+      password,
+    };
+
+    axios.post("http://26.139.165.208/register", userData)
+      .then((res) => console.log(res.data))
+      .catch(e => console.log(e));
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -58,6 +37,8 @@ const CreateAccount = () => {
             <TextInput
               style={styles.input}
               placeholder="Empresa"
+              value={enterprise}
+              onChangeText={(text) => setEnterprise(text)}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -65,6 +46,8 @@ const CreateAccount = () => {
             <TextInput
               style={styles.input}
               placeholder="CPF"
+              value={cpf}
+              onChangeText={(text) => setCpf(text)}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -73,6 +56,8 @@ const CreateAccount = () => {
               style={styles.input}
               placeholder="Crie sua senha"
               secureTextEntry={true}
+              value={password}
+              onChangeText={(text) => setPassword(text)}
             />
           </View>
           <View style={styles.inputContainer}>
@@ -81,12 +66,14 @@ const CreateAccount = () => {
               style={styles.input}
               placeholder="Repita sua senha"
               secureTextEntry={true}
+              value={passwordVerify}
+              onChangeText={(text) => setPasswordVerify(text)}
             />
           </View>
         </View>
 
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.createAccountButton} onPress={() => handleSubmit()}>
+          <TouchableOpacity style={styles.createAccountButton} onPress={handleSubmit}>
             <Text style={styles.createAccountButtonText}>Criar Conta</Text>
           </TouchableOpacity>
         </View>
@@ -156,7 +143,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    width: 200, // largura igual para os botões
+    width: 200, // 
   },
   createAccountButtonText: {
     fontSize: 18,
