@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -10,7 +11,7 @@ const CreateAccount = () => {
   const [showPassword, setShowPassword] = useState(false); // Estado para exibir ou ocultar a senha
   const [passwordError, setPasswordError] = useState(false); // Estado para o erro de senha
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // Validação no frontend
     if (!cpf || !enterprise || !password) {
       Alert.alert("Erro", "Todos os campos são obrigatórios.");
@@ -35,9 +36,24 @@ const CreateAccount = () => {
       password,
     };
 
-    // Simulação de envio de dados para o backend
-    Alert.alert("Sucesso", "Conta criada com sucesso!");
-    console.log(userData);
+    try {
+      // Requisição POST para o backend
+      const response = await axios.post('http://192.168.20.122:5001/register', userData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // Verifica a resposta do backend
+      if (response.status === 200 && response.data.status === 'Ok') {
+        Alert.alert("Sucesso", "Conta criada com sucesso!");
+      } else {
+        Alert.alert("Erro", response.data.error || "Erro ao criar conta.");
+      }
+    } catch (error) {
+      console.error("Erro ao criar conta:", error);
+      Alert.alert("Erro", "Não foi possível criar a conta. Verifique a conexão com o servidor.");
+    }
   };
 
   const toggleShowPassword = () => {
