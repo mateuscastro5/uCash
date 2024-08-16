@@ -1,26 +1,49 @@
 import React, { useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView, StyleSheet, Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import axios from 'axios';
 
 const CreateAccount = () => {
-  const navigation = useNavigation();
   const [cpf, setCpf] = useState('');
   const [enterprise, setEnterprise] = useState('');
   const [password, setPassword] = useState('');
   const [passwordVerify, setPasswordVerify] = useState('');
+  const [showPassword, setShowPassword] = useState(false); // Estado para exibir ou ocultar a senha
 
   const handleSubmit = () => {
+    // Validação no frontend
+    if (!cpf || !enterprise || !password) {
+      Alert.alert("Erro", "Todos os campos são obrigatórios.");
+      return;
+    }
+
+    if (cpf.length !== 9) {
+      Alert.alert("Erro", "O CPF deve ter 9 dígitos.");
+      return;
+    }
+
+    if (password.length < 6) {
+      Alert.alert("Erro", "A senha deve ter no mínimo 6 caracteres.");
+      return;
+    }
+
+    if (password !== passwordVerify) {
+      Alert.alert("Erro", "As senhas não coincidem.");
+      return;
+    }
+
     const userData = {
       cpf,
       enterprise,
       password,
     };
 
-    axios.post("http://26.139.165.208/register", userData)
-      .then((res) => console.log(res.data))
-      .catch(e => console.log(e));
+    // Simulação de envio de dados para o backend
+    Alert.alert("Sucesso", "Conta criada com sucesso!");
+    console.log(userData);
+  };
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -46,8 +69,10 @@ const CreateAccount = () => {
             <TextInput
               style={styles.input}
               placeholder="CPF"
+              keyboardType="numeric"
               value={cpf}
-              onChangeText={(text) => setCpf(text)}
+              maxLength={9}  // Limita o CPF para 9 dígitos
+              onChangeText={(text) => setCpf(text.replace(/[^0-9]/g, ''))}  // Garante que apenas números sejam digitados
             />
           </View>
           <View style={styles.inputContainer}>
@@ -55,20 +80,26 @@ const CreateAccount = () => {
             <TextInput
               style={styles.input}
               placeholder="Crie sua senha"
-              secureTextEntry={true}
+              secureTextEntry={!showPassword}  // Controla se a senha será exibida ou não
               value={password}
               onChangeText={(text) => setPassword(text)}
             />
+            <TouchableOpacity onPress={toggleShowPassword}>
+              <Ionicons name={showPassword ? "eye" : "eye-off"} size={24} color="#3A3A3A" />
+            </TouchableOpacity>
           </View>
           <View style={styles.inputContainer}>
             <Ionicons name="lock-closed" size={24} color="#3A3A3A" style={styles.inputIcon} />
             <TextInput
               style={styles.input}
               placeholder="Repita sua senha"
-              secureTextEntry={true}
+              secureTextEntry={!showPassword}  // Usa o mesmo controle para a senha de confirmação
               value={passwordVerify}
               onChangeText={(text) => setPasswordVerify(text)}
             />
+            <TouchableOpacity onPress={toggleShowPassword}>
+              <Ionicons name={showPassword ? "eye" : "eye-off"} size={24} color="#3A3A3A" />
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -133,7 +164,7 @@ const styles = StyleSheet.create({
   },
   createAccountButton: {
     alignItems: 'center',
-    backgroundColor: '#31FF9C', // Verde
+    backgroundColor: '#31FF9C',
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 20,
@@ -143,7 +174,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    width: 200, // 
+    width: 200,
   },
   createAccountButtonText: {
     fontSize: 18,
