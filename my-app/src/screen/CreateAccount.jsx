@@ -8,6 +8,7 @@ const CreateAccount = () => {
   const [password, setPassword] = useState('');
   const [passwordVerify, setPasswordVerify] = useState('');
   const [showPassword, setShowPassword] = useState(false); // Estado para exibir ou ocultar a senha
+  const [passwordError, setPasswordError] = useState(false); // Estado para o erro de senha
 
   const handleSubmit = () => {
     // Validação no frontend
@@ -16,14 +17,11 @@ const CreateAccount = () => {
       return;
     }
 
-    if (cpf.length !== 9) {
-      Alert.alert("Erro", "O CPF deve ter 9 dígitos.");
-      return;
-    }
-
     if (password.length < 6) {
-      Alert.alert("Erro", "A senha deve ter no mínimo 6 caracteres.");
+      setPasswordError(true); // Mostra o asterisco vermelho se a senha for menor que 6 dígitos
       return;
+    } else {
+      setPasswordError(false);
     }
 
     if (password !== passwordVerify) {
@@ -71,7 +69,7 @@ const CreateAccount = () => {
               placeholder="CPF"
               keyboardType="numeric"
               value={cpf}
-              maxLength={9}  // Limita o CPF para 9 dígitos
+              maxLength={11}  // Limita o CPF para 11 dígitos
               onChangeText={(text) => setCpf(text.replace(/[^0-9]/g, ''))}  // Garante que apenas números sejam digitados
             />
           </View>
@@ -87,6 +85,7 @@ const CreateAccount = () => {
             <TouchableOpacity onPress={toggleShowPassword}>
               <Ionicons name={showPassword ? "eye" : "eye-off"} size={24} color="#3A3A3A" />
             </TouchableOpacity>
+            {passwordError && <Text style={styles.errorText}>*</Text>}
           </View>
           <View style={styles.inputContainer}>
             <Ionicons name="lock-closed" size={24} color="#3A3A3A" style={styles.inputIcon} />
@@ -179,6 +178,11 @@ const styles = StyleSheet.create({
   createAccountButtonText: {
     fontSize: 18,
     color: '#3A3A3A',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 20,
+    marginLeft: 5,
   },
 });
 
